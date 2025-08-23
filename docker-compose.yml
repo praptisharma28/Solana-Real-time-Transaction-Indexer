@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: solana_indexer
+      POSTGRES_USER: indexer
+      POSTGRES_PASSWORD: password123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U indexer -d solana_indexer"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  indexer:
+    build: .
+    environment:
+      GRPC_ENDPOINT: "https://solana-rpc.parafi.tech:10443"
+      GRPC_TOKEN: "${GRPC_TOKEN}"
+      DATABASE_URL: "postgresql://indexer:password123@postgres:5432/solana_indexer"
+      NODE_ENV: "production"
+      LOG_LEVEL: "info"
+      MAX_RECONNECT_ATTEMPTS: "10"
+      RECONNECT_DELAY_MS: "5000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+    volumes:
+      - ./logs:/app/logs
+
+  # Optional: Prometheus for metrics
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+
+  # Optional: Grafana for visualization
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: admin
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/dashboards:/etc/grafana/provisioning/dashboards
+      - ./grafana/datasources:/etc/grafana/provisioning/datasources
+
+volumes:
+  postgres_data:
+  prometheus_data:
+  grafana_data:

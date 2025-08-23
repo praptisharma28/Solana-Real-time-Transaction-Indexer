@@ -1,0 +1,51 @@
+{
+  "name": "solana-transaction-indexer",
+  "version": "1.0.0",
+  "description": "A modular Solana blockchain indexer with real-time processing",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "nodemon --exec ts-node src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "db:generate": "prisma generate --schema=src/database/schema.prisma",
+    "db:push": "prisma db push --schema=src/database/schema.prisma",
+    "db:studio": "prisma studio --schema=src/database/schema.prisma",
+    "db:reset": "prisma migrate reset --schema=src/database/schema.prisma",
+    "test:connection": "ts-node scripts/test-connection.ts",
+    "test:db": "ts-node scripts/database-test.ts",
+    "setup": "chmod +x scripts/setup.sh && ./scripts/setup.sh",
+    "monitor": "chmod +x scripts/monitor.sh && ./scripts/monitor.sh",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f indexer",
+    "docker:rebuild": "docker-compose down && docker-compose build && docker-compose up -d",
+    "lint": "eslint src/**/*.ts",
+    "format": "prettier --write src/**/*.ts"
+  },
+  "dependencies": {
+    "@triton-one/yellowstone-grpc": "^0.4.0",
+    "@prisma/client": "^5.7.0",
+    "chalk": "^4.1.2",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.0",
+    "ts-node": "^10.9.0",
+    "nodemon": "^3.0.0",
+    "prisma": "^5.7.0",
+    "eslint": "^8.55.0",
+    "@typescript-eslint/eslint-plugin": "^6.14.0",
+    "@typescript-eslint/parser": "^6.14.0",
+    "prettier": "^3.1.0"
+  },
+  "keywords": [
+    "solana",
+    "blockchain",
+    "indexer",
+    "yellowstone",
+    "grpc"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}

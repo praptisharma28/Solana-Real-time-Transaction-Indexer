@@ -1,0 +1,82 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Transaction {
+  id               String   @id @default(cuid())
+  signature        String   @unique
+  slot             BigInt
+  blockTime        DateTime?
+  success          Boolean
+  fee              BigInt?
+  computeUnitsUsed BigInt?
+  accounts         String[] // JSON array of account pubkeys
+  instructions     Json[]   // Array of instruction data
+  memos            Memo[]
+  createdAt        DateTime @default(now())
+  
+  @@index([slot])
+  @@index([success])
+  @@index([blockTime])
+}
+
+model Account {
+  id        String   @id @default(cuid())
+  pubkey    String   @unique
+  owner     String
+  lamports  BigInt
+  data      String?  // Base64 encoded
+  executable Boolean
+  rentEpoch BigInt
+  slot      BigInt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@index([owner])
+  @@index([slot])
+}
+
+model Memo {
+  id            String      @id @default(cuid())
+  content       String
+  transactionId String
+  transaction   Transaction @relation(fields: [transactionId], references: [id])
+  createdAt     DateTime    @default(now())
+  
+  @@index([content])
+}
+
+model LargeTransfer {
+  id          String   @id @default(cuid())
+  signature   String   @unique
+  fromPubkey  String
+  toPubkey    String
+  lamports    BigInt
+  slot        BigInt
+  blockTime   DateTime?
+  createdAt   DateTime @default(now())
+  
+  @@index([lamports])
+  @@index([fromPubkey])
+  @@index([toPubkey])
+}
+
+model FailedTransaction {
+  id          String   @id @default(cuid())
+  signature   String   @unique
+  slot        BigInt
+  error       String
+  errorCode   String?
+  logs        String[] // Array of log messages
+  accounts    String[] // Involved accounts
+  blockTime   DateTime?
+  createdAt   DateTime @default(now())
+  
+  @@index([error])
+  @@index([errorCode])
+}
