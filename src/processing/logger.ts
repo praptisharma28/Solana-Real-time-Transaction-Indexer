@@ -1,5 +1,3 @@
-import chalk from 'chalk';
-
 export class Logger {
   private logLevel: string;
 
@@ -8,47 +6,49 @@ export class Logger {
   }
 
   info(message: string, data?: any) {
-    console.log(chalk.blue(`[INFO] ${new Date().toISOString()} - ${message}`));
+    console.log(`[INFO] ${new Date().toISOString()} - ${message}`);
     if (data && this.logLevel === 'debug') {
-      console.log(chalk.gray(JSON.stringify(data, null, 2)));
+      console.log(JSON.stringify(data, null, 2));
     }
   }
 
   success(message: string, data?: any) {
-    console.log(chalk.green(`[SUCCESS] ${new Date().toISOString()} - ${message}`));
+    console.log(`[SUCCESS] ${new Date().toISOString()} - ${message}`);
     if (data && this.logLevel === 'debug') {
-      console.log(chalk.gray(JSON.stringify(data, null, 2)));
+      console.log(JSON.stringify(data, null, 2));
     }
   }
 
   warn(message: string, data?: any) {
-    console.log(chalk.yellow(`[WARN] ${new Date().toISOString()} - ${message}`));
+    console.log(`[WARN] ${new Date().toISOString()} - ${message}`);
     if (data) {
-      console.log(chalk.gray(JSON.stringify(data, null, 2)));
+      console.log(JSON.stringify(data, null, 2));
     }
   }
 
   error(message: string, error?: any) {
-    console.log(chalk.red(`[ERROR] ${new Date().toISOString()} - ${message}`));
+    console.log(`[ERROR] ${new Date().toISOString()} - ${message}`);
     if (error) {
-      console.log(chalk.red(error.stack || error));
+      console.log(error.stack || error);
     }
   }
 
   memo(message: string, content: string) {
-    console.log(chalk.magenta(`[MEMO] ${new Date().toISOString()} - ${message}`));
-    console.log(chalk.cyan(`Content: "${content}"`));
+    console.log(`[MEMO] ${new Date().toISOString()} - ${message}`);
+    console.log(`Content: "${content}"`);
   }
 
   transfer(from: string, to: string, amount: number, signature: string) {
-    console.log(chalk.yellow(`[TRANSFER] ${new Date().toISOString()}`));
-    console.log(chalk.white(`  From: ${from.slice(0, 8)}...${from.slice(-8)}`));
-    console.log(chalk.white(`  To:   ${to.slice(0, 8)}...${to.slice(-8)}`));
-    console.log(chalk.white(`  Amount: ${amount} SOL`));
-    console.log(chalk.gray(`  Sig: ${signature.slice(0, 16)}...`));
+    console.log(`[TRANSFER] ${new Date().toISOString()}`);
+    console.log(`  From: ${from.slice(0, 8)}...${from.slice(-8)}`);
+    console.log(`  To:   ${to.slice(0, 8)}...${to.slice(-8)}`);
+    console.log(`  Amount: ${amount} SOL`);
+    console.log(`  Sig: ${signature.slice(0, 16)}...`);
   }
 
   slot(slotNumber: bigint, parent?: bigint) {
-    console.log(chalk.cyan(`[SLOT] ${new Date().toISOString()} - Slot: ${slotNumber}${parent ? ` (Parent: ${parent})` : ''}`));
+    console.log(
+      `[SLOT] ${new Date().toISOString()} - Slot: ${slotNumber}${parent ? ` (Parent: ${parent})` : ''}`
+    );
   }
 }

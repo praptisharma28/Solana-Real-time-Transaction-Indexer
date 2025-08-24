@@ -4,7 +4,6 @@ const prisma = new PrismaClient();
 
 async function healthCheck() {
   try {
-    // Test database connectivity
     await prisma.$queryRaw`SELECT 1`;
     console.log('Health check passed');
     process.exit(0);

@@ -1,6 +1,3 @@
-// src/types/index.ts
-
-// Application-specific types
 export interface TransactionData {
   signature: string;
   from?: string;
@@ -48,7 +45,6 @@ export interface IndexerStats {
   lastProcessedSlot: number;
 }
 
-// Re-export the official Yellowstone types - DON'T redefine them
 export {
   SubscribeRequest,
   SubscribeResponse,
@@ -60,7 +56,6 @@ export {
   SubscribeUpdatePing,
 } from '@triton-one/yellowstone-grpc';
 
-// Keep your custom interfaces for backwards compatibility if needed
 export interface CustomSubscribeRequest {
   accounts?: Record<string, CustomAccountSubscription>;
   slots?: Record<string, CustomSlotSubscription>;
@@ -99,4 +94,3 @@ export interface CustomBlockSubscription {}
 export interface CustomBlockMetaSubscription {}
 export interface CustomEntrySubscription {}
 export interface CustomAccountDataSlice {}
-

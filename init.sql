@@ -1,0 +1,3 @@
+CREATE USER indexer WITH PASSWORD 'password123' CREATEDB SUPERUSER;
+CREATE DATABASE solana_indexer OWNER indexer;
+GRANT ALL PRIVILEGES ON DATABASE solana_indexer TO indexer;

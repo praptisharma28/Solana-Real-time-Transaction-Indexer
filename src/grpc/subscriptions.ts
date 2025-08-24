@@ -1,6 +1,4 @@
-// src/grpc/subscriptions.ts
 import { SubscribeRequest } from '@triton-one/yellowstone-grpc';
-import bs58 from 'bs58';
 
 export function createLargeTransferSubscription(): SubscribeRequest {
   return {
@@ -11,7 +9,7 @@ export function createLargeTransferSubscription(): SubscribeRequest {
         vote: false,
         failed: false,
         signature: undefined,
-        accountInclude: ['11111111111111111111111111111111'], // System Program
+        accountInclude: ['11111111111111111111111111111111'],
         accountExclude: [],
         accountRequired: ['11111111111111111111111111111111'],
       },
@@ -78,10 +76,10 @@ export function createDeFiSubscription(): SubscribeRequest {
       'defi-accounts': {
         account: [],
         owner: [
-          '675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8', // Raydium AMM
-          'JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4', // Jupiter V6
-          'whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc', // Orca Whirlpool
-          '9xQeWvG816bUx9EPjHmaT23yvVM2ZWbrrpZb9PusVFin', // Serum DEX
+          '675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8',
+          'JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4',
+          'whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc',
+          '9xQeWvG816bUx9EPjHmaT23yvVM2ZWbrrpZb9PusVFin',
         ],
         filters: [],
       },
@@ -92,10 +90,10 @@ export function createDeFiSubscription(): SubscribeRequest {
         failed: false,
         signature: undefined,
         accountInclude: [
-          '675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8', // Raydium AMM
-          'JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4', // Jupiter V6
-          'whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc', // Orca Whirlpool
-          '9xQeWvG816bUx9EPjHmaT23yvVM2ZWbrrpZb9PusVFin', // Serum DEX
+          '675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8',
+          'JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4',
+          'whirLbMiicVdio4qvUfM5KAg6Ct8VwpYzGff3uctyCc',
+          '9xQeWvG816bUx9EPjHmaT23yvVM2ZWbrrpZb9PusVFin',
         ],
         accountExclude: [],
         accountRequired: [],
@@ -116,8 +114,8 @@ export function createTokenSubscription(tokenMints: string[]): SubscribeRequest 
     accounts: {
       'token-accounts': {
         account: [],
-        owner: ['TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA'], // SPL Token Program
-        filters: [], // Simplified - remove complex filters for now
+        owner: ['TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA'],
+        filters: [],
       },
     },
     transactions: {
@@ -139,7 +137,6 @@ export function createTokenSubscription(tokenMints: string[]): SubscribeRequest 
   };
 }
 
-// Popular token subscription presets
 export function createUSDCSubscription(): SubscribeRequest {
   const USDC_MINT = 'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v';
   return createTokenSubscription([USDC_MINT]);
@@ -155,7 +152,22 @@ export function createSOLSubscription(): SubscribeRequest {
   return createTokenSubscription([WSOL_MINT]);
 }
 
-// Simple ping subscription for connection testing
+export function createSlotSubscription(): SubscribeRequest {
+  return {
+    slots: {
+      'slot-updates': {},
+    },
+    accounts: {},
+    transactions: {},
+    blocks: {},
+    blocksMeta: {},
+    accountsDataSlice: [],
+    entry: {},
+    commitment: undefined,
+    ping: undefined,
+  };
+}
+
 export function createPingSubscription(): SubscribeRequest {
   return {
     slots: {},
