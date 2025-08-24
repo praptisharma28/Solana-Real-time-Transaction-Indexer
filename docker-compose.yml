@@ -19,7 +19,7 @@ services:
   indexer:
     build: .
     environment:
-      GRPC_ENDPOINT: "https://solana-rpc.parafi.tech:10443"
+      GRPC_ENDPOINT: ""
       GRPC_TOKEN: ""
       DATABASE_URL: "postgresql://indexer:password123@postgres:5432/solana_indexer"
       NODE_ENV: "production"
