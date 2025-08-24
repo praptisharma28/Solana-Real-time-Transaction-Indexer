@@ -23,7 +23,7 @@ Stream live Solana blockchain data → Filter & Process → Store in Database �
 
 <img width="589" height="281" alt="gRPC Connection Success" src="https://github.com/user-attachments/assets/1d3c45ff-5fba-4c58-beff-df67bfe75b20" />
 
-*Real-time slot streaming - your indexer connected to Solana mainnet*
+*Real-time slot streaming - indexer connected to Solana mainnet*
 
 <img width="516" height="322" alt="Database Connection & Slot Processing" src="https://github.com/user-attachments/assets/863b5f50-6711-442d-9ce0-b51ef6f76daa" />
 
@@ -36,8 +36,8 @@ Stream live Solana blockchain data → Filter & Process → Store in Database �
 ## Quick Start
 
 ```bash
-git clone https://github.com/yourusername/solana-transaction-indexer
-cd solana-transaction-indexer
+git clone https://github.com/praptisharma28/Solana-Real-time-Transaction-Indexer
+cd Solana-Real-time-Transaction-Indexer
 npm install
 
 cp .env.example .env
@@ -151,6 +151,7 @@ If this helped you build something cool, give it a star!✨
 ---
 
 **Built with ❤️ by [Prapti](https://x.com/praptichilling) for the Solana ecosystem**
+
 
 
 
