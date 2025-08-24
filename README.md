@@ -19,7 +19,7 @@ Stream live Solana blockchain data → Filter & Process → Store in Database �
 - **Analytics Ready**: Structured PostgreSQL storage for insights
 - **Production Scale**: Handles Solana's 2000+ TPS throughput
 
-## Live Demo
+## Demo Screenshots
 
 <img width="589" height="281" alt="gRPC Connection Success" src="https://github.com/user-attachments/assets/1d3c45ff-5fba-4c58-beff-df67bfe75b20" />
 
@@ -151,5 +151,6 @@ If this helped you build something cool, give it a star!✨
 ---
 
 **Built with ❤️ by [Prapti](https://x.com/praptichilling) for the Solana ecosystem**
+
 
 
