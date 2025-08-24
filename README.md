@@ -1,5 +1,6 @@
 # Solana Real-time Transaction Indexer ⚡
 
+[![Star this repo](https://img.shields.io/badge/⭐_Star-This_repo-lightgrey?style=flat)](https://github.com/praptisharma28/Solana-Real-time-Transaction-Indexer)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Solana](https://img.shields.io/badge/Solana-9945FF?style=flat&logo=solana&logoColor=white)](https://solana.com/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=flat&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
@@ -150,4 +151,5 @@ If this helped you build something cool, give it a star!✨
 ---
 
 **Built with ❤️ by [Prapti](https://x.com/praptichilling) for the Solana ecosystem**
+
 
