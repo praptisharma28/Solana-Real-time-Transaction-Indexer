@@ -1,5 +1,6 @@
 // src/grpc/subscriptions.ts
 import { SubscribeRequest } from '@triton-one/yellowstone-grpc';
+import bs58 from 'bs58';
 
 export function createLargeTransferSubscription(): SubscribeRequest {
   return {
@@ -15,7 +16,6 @@ export function createLargeTransferSubscription(): SubscribeRequest {
         accountRequired: ['11111111111111111111111111111111'],
       },
     },
-    transactionStatus: {},
     blocks: {},
     blocksMeta: {},
     accountsDataSlice: [],
@@ -39,7 +39,6 @@ export function createMemoSubscription(): SubscribeRequest {
         accountRequired: [],
       },
     },
-    transactionStatus: {},
     blocks: {},
     blocksMeta: {},
     accountsDataSlice: [],
@@ -63,7 +62,6 @@ export function createFailedTxSubscription(): SubscribeRequest {
         accountRequired: [],
       },
     },
-    transactionStatus: {},
     blocks: {},
     blocksMeta: {},
     accountsDataSlice: [],
@@ -103,7 +101,6 @@ export function createDeFiSubscription(): SubscribeRequest {
         accountRequired: [],
       },
     },
-    transactionStatus: {},
     blocks: {},
     blocksMeta: {},
     accountsDataSlice: [],
@@ -120,14 +117,7 @@ export function createTokenSubscription(tokenMints: string[]): SubscribeRequest 
       'token-accounts': {
         account: [],
         owner: ['TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA'], // SPL Token Program
-        filters: tokenMints.map((mint) => ({
-          memcmp: {
-            offset: 0,
-            bytes: mint,
-            base58: undefined,
-            base64: undefined,
-          },
-        })),
+        filters: [], // Simplified - remove complex filters for now
       },
     },
     transactions: {
@@ -140,7 +130,6 @@ export function createTokenSubscription(tokenMints: string[]): SubscribeRequest 
         accountRequired: [],
       },
     },
-    transactionStatus: {},
     blocks: {},
     blocksMeta: {},
     accountsDataSlice: [],
@@ -172,7 +161,6 @@ export function createPingSubscription(): SubscribeRequest {
     slots: {},
     accounts: {},
     transactions: {},
-    transactionStatus: {},
     blocks: {},
     blocksMeta: {},
     accountsDataSlice: [],
