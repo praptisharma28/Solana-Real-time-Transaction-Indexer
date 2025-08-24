@@ -7,6 +7,8 @@
 
 A high-performance, real-time Solana blockchain indexer that streams live transaction data and stores it in PostgreSQL for analytics and monitoring.
 
+For a full guide on indexer, read my blog here: [Indexing on Solana: A Complete Guide to Deposits, Withdrawals, Memos, and Security](https://medium.com/@praptii/indexing-on-solana-a-complete-guide-to-deposits-withdrawals-memos-and-security-4ecb2d2f3f69)
+
 ## What It Does
 
 Stream live Solana blockchain data → Filter & Process → Store in Database → Real-time Analytics
@@ -148,3 +150,4 @@ If this helped you build something cool, give it a star!✨
 ---
 
 **Built with ❤️ by [Prapti](https://x.com/praptichilling) for the Solana ecosystem**
+
