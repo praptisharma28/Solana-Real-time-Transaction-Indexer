@@ -19,7 +19,6 @@ async function testConnection() {
   if (token && token.trim() !== '') {
     console.log('Token configured:', token.substring(0, 10) + '...');
   } else {
-    console.log('Using ParaFi free server (no token required)');
   }
 
   try {
