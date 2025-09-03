@@ -30,7 +30,8 @@ model Account {
   pubkey    String   @unique
   owner     String
   lamports  BigInt
-  data      String?  // Base64 encoded
+  data      String?  // Base64 encoded (legacy)
+  parsedData Json?   // Structured parsed data from IDL/parsers
   executable Boolean
   rentEpoch BigInt
   slot      BigInt

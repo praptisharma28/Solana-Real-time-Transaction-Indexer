@@ -47,7 +47,6 @@ export interface IndexerStats {
 
 export {
   SubscribeRequest,
-  SubscribeResponse,
   SubscribeUpdate,
   SubscribeUpdateTransaction,
   SubscribeUpdateAccount,

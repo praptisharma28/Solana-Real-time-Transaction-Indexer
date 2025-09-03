@@ -1,5 +1,8 @@
 import { db } from '../database/client';
 import { TransactionFilters } from './filters';
+import { parseByProgram } from './idl';
+import fs from 'fs/promises';
+import path from 'path';
 
 export class DataHandler {
   async handleTransaction(transactionUpdate: any) {
@@ -145,25 +148,57 @@ export class DataHandler {
       const account = accountUpdate.account;
       const pubkey = account.pubkey.toString();
 
+      // Preserve raw base64 exactly as before for DB storage
+      const rawBase64 = account.data ? Buffer.from(account.data).toString('base64') : null;
+
+      // Attempt to parse known account layouts (SPL token, etc.) using program-specific parsers
+      const parsed = account.owner && rawBase64 ? parseByProgram(account.owner.toString(), rawBase64) : null;
+
+      // Write parsed sidecar JSON (keeps DB schema unchanged). Directory configurable via PARSED_ACCOUNTS_DIR
+      if (parsed) {
+        try {
+          const dir = process.env.PARSED_ACCOUNTS_DIR || path.join(process.cwd(), 'data', 'parsed_accounts');
+          await fs.mkdir(dir, { recursive: true });
+          const filePath = path.join(dir, `${pubkey}.json`);
+          const payload = {
+            pubkey,
+            programId: account.owner?.toString(),
+            parsed,
+            raw: rawBase64,
+            slot: accountUpdate.slot ?? null,
+            updatedAt: new Date().toISOString(),
+          };
+          await fs.writeFile(filePath, JSON.stringify(payload, null, 2), { encoding: 'utf8' });
+        } catch (fsErr) {
+          console.error('Error writing parsed account sidecar', fsErr);
+        }
+      }
+
       await db.prisma.account.upsert({
         where: { pubkey },
-        create: {
+        create: ({
           pubkey,
           owner: account.owner.toString(),
           lamports: BigInt(account.lamports),
-          data: account.data ? Buffer.from(account.data).toString('base64') : null,
+          // keep legacy `data` column for compatibility
+          data: rawBase64,
+          // new dedicated raw + parsed fields
+          rawData: rawBase64,
+          parsedData: parsed,
           executable: account.executable,
           rentEpoch: BigInt(account.rentEpoch),
           slot: BigInt(accountUpdate.slot),
-        },
-        update: {
+        } as any),
+        update: ({
           owner: account.owner.toString(),
           lamports: BigInt(account.lamports),
-          data: account.data ? Buffer.from(account.data).toString('base64') : null,
+          data: rawBase64,
+          rawData: rawBase64,
+          parsedData: parsed,
           executable: account.executable,
           rentEpoch: BigInt(account.rentEpoch),
           slot: BigInt(accountUpdate.slot),
-        },
+        } as any),
       });
     } catch (error) {
       console.error('Error handling account update', error);
