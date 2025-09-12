@@ -58,7 +58,7 @@ export class DataHandler {
 
       for (const instruction of instructions) {
         if (instruction.programId === TransactionFilters.SYSTEM_PROGRAM) {
-          const data = Buffer.from(instruction.data, 'base64');
+          const data = Buffer.from(instruction.data);
           if (data.length >= 12 && data.readUInt32LE(0) === 2) {
             const lamports = data.readBigUInt64LE(4);
             const fromPubkey = accounts[instruction.accounts[0]]?.toString() || '';
